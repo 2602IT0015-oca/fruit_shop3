@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  # 新規商品
+
+  # 商品登録
   get 'products/new'
-  post 'products', to: 'products#create'  # 登録
+  post 'products', to: 'products#create'
 
   # 商品一覧
   get 'products', to: 'products#index'
@@ -11,10 +12,13 @@ Rails.application.routes.draw do
 
   # 商品編集
   get 'products/:id/edit', to: 'products#edit', as: 'edit_product'
-  patch 'products/:id', to: 'products#update' # 編集
+  patch 'products/:id', to: 'products#update'
 
   # 商品削除
   delete 'products/:id', to: 'products#destroy', as: 'destroy_product'
+
+  # 商品関連
+  # resources :products
 
   # トップページ
   root to: "homes#top"
