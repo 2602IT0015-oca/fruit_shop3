@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "mypage/show"
 
   # # 商品登録
   # get 'products/new'
@@ -16,6 +17,12 @@ Rails.application.routes.draw do
 
   # # 商品削除
   # delete 'products/:id', to: 'products#destroy', as: 'destroy_product'
+
+  # ユーザ認証
+  devise_for :users
+
+  # マイページ
+  resources :mypage, only: [:show]
 
   # 商品関連
   resources :products
