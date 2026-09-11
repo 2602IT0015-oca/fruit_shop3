@@ -1,24 +1,24 @@
 Rails.application.routes.draw do
+  get "mypage/show"
+  # ユーザ認証
+  devise_for :users
 
-  # # 商品登録
-  # get 'products/new'
-  # post 'products', to: 'products#create'
-
-  # # 商品一覧
-  # get 'products', to: 'products#index'
-
-  # # 商品詳細
-  # get 'products/:id', to: 'products#show', as: 'product'
-
-  # # 商品編集
-  # get 'products/:id/edit', to: 'products#edit', as: 'edit_product'
-  # patch 'products/:id', to: 'products#update'
-
-  # # 商品削除
-  # delete 'products/:id', to: 'products#destroy', as: 'destroy_product'
+  # マイページ
+  resources :mypage, only: [:show]
 
   # 商品関連
   resources :products
+
+  # 注文関連
+  resources :orders, only: [:index, :new, :create] do 
+    collection do
+      post :confirm   # 注文確認
+    end
+
+    member do
+      get :complete  # 注文完了
+    end
+  end
 
   # トップページ
   root to: "homes#top"
