@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
   get "mypage/show"
-
-  # ユーザ認証
-  devise_for :users
-
-
+  
   # マイページ
   resources :mypage, only: [:show]
 
