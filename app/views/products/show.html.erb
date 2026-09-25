@@ -8,6 +8,7 @@
   <p>商品名: <%= @product.name %></p>
   <p>説明: <%= @product.description %></p>
   <p>価格: <%= @product.price %>円</p>
+  <p>販売状況: <%= I18n.t("enums.product.status.#{@product.status}") %></p>
 </div>
 
 <% if current_user&.admin_flg %>
@@ -18,14 +19,14 @@
   <%= link_to '削除', product_path(@product.id),  data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
 
 
-  <% elsif !current_user %>
+  <% elsif !current_user && @product.status == 'on_sale' %>
     <%= form_with url: add_product_carts_path, local: true, data: { turbo: false } do |form| %>
       <%= form.hidden_field :product_id, value: @product.id %>
       <%= form.number_field :count, value: 1, min: 1 %>
       <%= form.submit 'カートに追加' %>
     <% end %>
   
-  <% else %>
+  <% elsif @product.status == 'on_sale' %>
 
     <%= form_with scope: :cart_item, url: cart_items_path do |form| %>
       <%= form.hidden_field :product_id, value: @product.id %>

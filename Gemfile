@@ -67,3 +67,9 @@ end
 
 # Devise
 gem "devise"
+
+# Enum
+gem 'enum_help'
+
+# app/Gemfile
+gem 'devise-i18n'
