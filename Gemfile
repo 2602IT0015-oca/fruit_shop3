@@ -73,3 +73,6 @@ gem 'enum_help'
 
 # app/Gemfile
 gem 'devise-i18n'
+
+# Ransack
+gem 'ransack'
