@@ -24,12 +24,16 @@ class ProductsController < ApplicationController
 
   # 商品一覧
   def index
-    @products = Product.all
+    # 検索オブジェクト作成
+    @q = Product.ransack params[:q]
+    # 検索条件に基づいた一覧取得
+    @products = @q.result
   end
 
   # 商品詳細
   def show
     @product = Product.find(params[:id])
+    @cart_item = CartItem.new             # 新しい買い物かご詳細を作成するための空のインスタンスを用意
   end
 
   # 商品編集

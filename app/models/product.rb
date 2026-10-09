@@ -8,7 +8,7 @@ class Product < ApplicationRecord
   has_many :carts, through: :cart_items      # 中間テーブルを通じて複数のカートと関連（多対多）
 
   # 関連付け（注文）
-  has_many :order_details                    # 商品は複数の注文と関連（1対多）
+  has_many :order_details, dependent: :destroy # 商品は複数の注文と関連（1対多）
   has_many :orders, through: :order_details  # 中間テーブルを通じて複数の注文と関連（多対多）
 
   # Active Storage（商品画像）
@@ -21,4 +21,10 @@ class Product < ApplicationRecord
 
   # Enum（販売状況）
   enum :status, { on_sale: 0, sold_out: 1 }
+
+  # 検索（Ransack）
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name price]
+  end
+
 end
